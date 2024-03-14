@@ -1,9 +1,9 @@
 use library_db;
 
 create table Author (
-    Author_ID VARCHAR(2) PRIMARY KEY,
-    Firstname VARCHAR(50),
-    Surname VARCHAR(50)
+    Author_ID varchar(2) primary key,
+    Firstname varchar(50),
+    Surname varchar(50)
 );
 
 insert into Author (Author_ID, Firstname, Surname)

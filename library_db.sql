@@ -46,3 +46,20 @@ CREATE TABLE library_member
     is_active BOOLEAN DEFAULT TRUE,
     date_joined DATE DEFAULT (CURDATE())
 );
+
+create table Category (
+    Category_ID varchar(12) primary key,
+    Category_Type varchar(50)
+);
+
+create table Author (
+    Author_ID varchar(2) primary key,
+    Firstname varchar(50),
+    Surname varchar(50)
+);
+
+create table Publication (
+    Publication_ID varchar(12) primary key,
+    Publisher varchar(50),
+    Year_Published int
+);

@@ -1,8 +1,8 @@
 use library_db;
 
 create table Category (
-    Category_ID VARCHAR(2) PRIMARY KEY,
-    Category_Type VARCHAR(50)
+    Category_ID varchar(12) primary key,
+    Category_Type varchar(50)
 );
 
 insert into Category (Category_ID, Category_Type)
@@ -17,3 +17,5 @@ values
 ('08', 'History'),
 ('09', 'Self-Help'),
 ('10', 'Travel');
+
+select * from Category;

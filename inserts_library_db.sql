@@ -93,3 +93,78 @@ VALUES
 SELECT * FROM library_member WHERE is_active = FALSE;
 
 
+
+
+insert into  Publication (Publication_ID, Publisher, Year_Published)
+values
+('01', 'Scribner', 1925),
+('02', 'J. B. Lippincott & Co.', 1960),
+('03', 'Crown Publishing Group', 2012),
+('04', 'Doubleday', 2003),
+('05', 'T. Egerton, Whitehall', 1813),
+('06', 'Delacorte Press', 1991),
+('07', 'Chilton Books', 1965),
+('08', 'Secker & Warburg', 1949),
+('09', 'Bloomsbury Publishing', 1997),
+('10', 'Allen & Unwin', 1937),
+('11', 'Riverhead Books', 2015),
+('12', 'Celadon Books', 2019),
+('13', 'Simon & Schuster', 2011),
+('14', 'Crown Publishing', 2018),
+('15', 'Harper', 2011),
+('16', 'Harper', 1980),
+('17', 'HarperOne', 2016),
+('18', 'Running Press', 2013),
+('19', 'Viking', 2006),
+('20', 'Knopf', 2012);
+
+select * from publication;
+
+
+
+
+
+insert into Author (Author_ID, Firstname, Surname)
+values 
+('01', 'F. Scott', 'Fitzgerald'),
+('02', 'Harper', 'Lee'),
+('03', 'Gillian', 'Flynn'),
+('04', 'Dan', 'Brown'),
+('05', 'Jane', 'Austen'),
+('06', 'Diana', 'Gabaldon'),
+('07', 'Frank', 'Herbert'),
+('08', 'George', 'Orwell'),
+('09', 'J.K.', 'Rowling'),
+('10', 'J.R.R.', 'Tolkien'),
+('11', 'Paula', 'Hawkins'),
+('12', 'Alex', 'Michaelides'),
+('13', 'Walter', 'Isaacson'),
+('14', 'Michelle', 'Obama'),
+('15', 'Yuval Noah', 'Harari'),
+('16', 'Howard', 'Zinn'),
+('17', 'Mark', 'Manson'),
+('18', 'Jen', 'Sincero'),
+('19', 'Elizabeth', 'Gilbert'),
+('20', 'Cheryl', 'Strayed');
+
+select * from Author;
+
+
+
+
+
+
+insert into Category (Category_ID, Category_Type)
+values
+('01', 'Fiction'),
+('02', 'Mystery'),
+('03', 'Romance'),
+('04', 'Science Fiction'),
+('05', 'Fantasy'),
+('06', 'Thriller'),
+('07', 'Biography'),
+('08', 'History'),
+('09', 'Self-Help'),
+('10', 'Travel');
+
+select * from Category;
