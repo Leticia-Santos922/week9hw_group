@@ -14,42 +14,8 @@ postcode VARCHAR(50) NOT NULL,
 county VARCHAR(50) NOT NULL
 );
 
-create table users
-(
--- column name, datatype (size), optional extra rules
-user_id INT AUTO_INCREMENT PRIMARY KEY,
-address_id INT, FOREIGN KEY (address_id) references addresses(address_id),
-firstname VARCHAR(50) NOT NULL,
-surname VARCHAR(50) NOT NULL,
-email VARCHAR(100) NOT NULL,
--- use varchar to store phone numbers, if store as INT then first 0 is removed. Can also use + for international if varchar
-phone_number VARCHAR(20) NOT NULL
-);
-
-CREATE TABLE staff
-(
-    staff_id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT, FOREIGN KEY (user_id) REFERENCES users(user_id),
-    hire_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    -- role is a reserved word so have to enclose in backticks or rename in order to use safely 
-    `role` VARCHAR(50)
-);
-
-INSERT INTO staff (user_id, hire_date, `role`)
-VALUES 
-(10, '2024-02-27 08:00:09', 'Chief Librarian'),
-(11, '2019-05-14 09:35:43', 'Librarian'),
-(12, '2017-02-01 08:39:13', 'Librarian'),
-(13, '2016-08-23 09:35:43', 'Library Assistant'),
-(14, '2024-03-01 10:13:16', 'Library Assistant'),
-(15, '2020-12-01 08:35:27', 'Library Technician')
-;
-
-SELECT * FROM staff;
-
-
 -- need to insert addresses first due to foreign key constraint! 
--- FK in users table requires address id to already exist in addres 
+-- FK in users table requires address id to already exist in address
 INSERT INTO addresses (address_id, house_number, street, city, postcode, county)
 VALUES 
 (1, '20', 'Aldwick Bay Estate', 'Bognor Regis', 'P021 4ES', 'West Sussex'),
@@ -71,30 +37,107 @@ VALUES
 
 SELECT * FROM addresses;
 
+create table users
+(
+-- column name, datatype (size), optional extra rules
+user_id INT AUTO_INCREMENT PRIMARY KEY,
+address_id INT, FOREIGN KEY (address_id) references addresses(address_id),
+firstname VARCHAR(50) NOT NULL,
+surname VARCHAR(50) NOT NULL,
+email VARCHAR(100) NOT NULL,
+-- use varchar to store phone numbers, if store as INT then first 0 is removed. Can also use + for international if varchar
+phone_number VARCHAR(20) NOT NULL
+);
+
 INSERT INTO users (address_id, firstname, surname, email, phone_number)
 VALUES 
 (1, 'Robert', 'Smith', 'bob.smith@gmail.com', '07498671752'),
 (2, 'Simon', 'Gallup', 'simon.gallup@hotmail.com', '07373321759'),
 (1, 'Mary', 'Smith', 'mary.smith@gmail.com', '07498671752'),
-(3, 'Claudia', 'Garcia', 'clayagari@outlook.com', '07429490283'),
-(4, 'Sara', 'Stewart', 'sarastew01@yahoo.co.uk', '07327477920'),
-(5, 'Tiffany', 'Johnson', 'tiffanyjohns88@gmail.com', '07492446222'),
-(6, 'Angela', 'Edwards', 'angedwards_1@outlook.com', '07498671752'),
-(7, 'Freddie', 'Dulaney', 'fred_dd01@gmail.com', '07373382259'),
-(8, 'Paul', 'Metcaff', 'paul02metcaff@hotmail.com', '07498232736'),
-(9, 'Pablo', 'Rodriguez', 'pabrodlo.34@gmail.com', '07493739302'),
-(10, 'Nancy', 'Lyons', 'nancy.lyons@outlook.com', '07372382181'),
-(11, 'Francisco', 'Alessio', 'fransico_alesso03@yahoo.co.uk', '07492157392'),
-(12, 'Raphael', 'de los Reyes', 'fransico_alesso03@yahoo.co.uk', '07492157392'),
-(13, 'Anthony', 'Granedo', 'antgren_26@gmail.com', '07373334222'),
-(14, 'Veronica', 'Gil', 'verogil_1@hotmail.com', '07437134252'),
-(15, 'Angelo', 'Black', 'angelo.black@gmail.com', '07498246399'),
-(16, 'Rebecca', 'Brown', 'rebeccabrown_201@outlook.com', '07263881751'),
-(16, 'Katy', 'Brown', 'katyb@outlook.com', '07367358926'),
-(16, 'David', 'Brown', 'david.brown@yahoo.co.uk', '07456378752'),
-(16, 'Natalia', 'Brown', 'natbrown1@yahoo.co.uk', '07463673812');
+(3, 'Rebecca', 'Brown', 'rebeccabrown_201@outlook.com', '07263881751'),
+(3, 'Katy', 'Brown', 'katyb@outlook.com', '07367358926'),
+(3, 'David', 'Brown', 'david.brown@yahoo.co.uk', '07456378752'),
+(3, 'Natalia', 'Brown', 'natbrown1@yahoo.co.uk', '07463673812'),
+(4, 'Claudia', 'Garcia', 'clayagari@outlook.com', '07429490283'),
+(5, 'Sara', 'Stewart', 'sarastew01@yahoo.co.uk', '07327477920'),
+(6, 'Tiffany', 'Johnson', 'tiffanyjohns88@gmail.com', '07492446222'),
+(7, 'Angela', 'Edwards', 'angedwards_1@outlook.com', '07498671752'),
+(8, 'Freddie', 'Dulaney', 'fred_dd01@gmail.com', '07373382259'),
+(9, 'Paul', 'Metcaff', 'paul02metcaff@hotmail.com', '07498232736'),
+(10, 'Pablo', 'Rodriguez', 'pabrodlo.34@gmail.com', '07493739302'),
+(11, 'Nancy', 'Lyons', 'nancy.lyons@outlook.com', '07372382181'),
+(12, 'Francisco', 'Alessio', 'fransico_alesso03@yahoo.co.uk', '07492157392'),
+(13, 'Raphael', 'de los Reyes', 'fransico_alesso03@yahoo.co.uk', '07492157392'),
+(14, 'Anthony', 'Granedo', 'antgren_26@gmail.com', '07373334222'),
+(15, 'Veronica', 'Gil', 'verogil_1@hotmail.com', '07437134252'),
+(16, 'Angelo', 'Black', 'angelo.black@gmail.com', '07498246399');
 
 SELECT * FROM users;
 
-SELECT * FROM users WHERE address_id = 16;
+-- testing multiple occupants at one address 
+SELECT * FROM users WHERE address_id = 1;
+
+SELECT * FROM users WHERE address_id = 3;
+
+-- do we need to use timestamp? If you specify just date then HH:MM:SS is set to 00:00:00
+-- if left blank then it will fill in the date and time of insertion  
+-- we are backdating and I have added random times, not sure if this is correct? 
+CREATE TABLE staff
+(
+    staff_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT, FOREIGN KEY (user_id) REFERENCES users(user_id),
+    -- data type is timestamp,  
+    hire_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    -- role is a reserved word so have to enclose in backticks or rename in order to use safely 
+    `role` VARCHAR(50)
+);
+
+-- manually added the time as backdated
+-- not including hire_date and not inputting date/time information should automatically add the date/time information as of record insertion
+INSERT INTO staff (user_id, hire_date, `role`)
+VALUES 
+(15, '2024-02-27 08:00:09', 'Chief Librarian'),
+(16, '2019-05-14 09:35:43', 'Librarian'),
+(17, '2017-02-01 08:39:13', 'Librarian'),
+(18, '2016-08-23 09:35:43', 'Library Assistant'),
+(19, '2024-03-01 10:13:16', 'Library Assistant'),
+(20, '2020-12-01 08:35:27', 'Library Technician');
+
+SELECT * FROM staff;
+
+CREATE TABLE members
+(
+    member_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT, FOREIGN KEY (user_id) REFERENCES users(user_id),
+    -- sets is_active to true by default
+    is_active BOOLEAN DEFAULT TRUE,
+    date_joined TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- only included date so time will be set to 00:00:00
+-- no need to specify is_active as the boolean value is true for the following users 
+INSERT INTO members (user_id, date_joined)
+VALUES 
+(1, '2024-02-27'),
+(2,'2019-05-14'),
+(3,'2017-02-01'),
+(4, '2016-08-23'),
+(5, '2024-03-01'),
+(6, '2020-10-08'),
+(8, '2024-02-27'),
+(9, '2019-04-05'),
+(11, '2019-03-08'),
+(12, '2017-03-31'),
+(14, '2024-01-10');
+
+-- only included date so time will be set to 00:00:00
+-- include is_active as defining as False 
+INSERT INTO members (user_id, is_active, date_joined)
+VALUES 
+(7, FALSE, '2019-05-14'),
+(10, FALSE, '2024-02-27'),
+(13, FALSE, '2016-06-08');
+
+SELECT * FROM members WHERE is_active = FALSE;
+
 
