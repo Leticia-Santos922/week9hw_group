@@ -4,9 +4,9 @@ use library_db;
 
 -- create addresses table first. users contains reference to addresses table with foreign key so has to go after
 -- foreign key can only reference a table that already exists in the database
-create table addresses
+create table address
 (
-address_id int PRIMARY KEY, 
+address_id INT AUTO_INCREMENT PRIMARY KEY, 
 house_number VARCHAR(50) NOT NULL,
 street VARCHAR(50) NOT NULL,
 city VARCHAR(50) NOT NULL,
@@ -14,9 +14,43 @@ postcode VARCHAR(50) NOT NULL,
 county VARCHAR(50) NOT NULL
 );
 
+create table user
+(
+-- column name, datatype (size), optional extra rules
+user_id INT AUTO_INCREMENT PRIMARY KEY,
+address_id INT, FOREIGN KEY (address_id) references address(address_id),
+firstname VARCHAR(50) NOT NULL,
+surname VARCHAR(50) NOT NULL,
+email VARCHAR(100) NOT NULL,
+-- use varchar to store phone numbers, if store as INT then first 0 is removed. Can also use + for international if varchar
+phone_number VARCHAR(20) NOT NULL
+);
+
+-- do we need to use timestamp? If you specify just date then HH:MM:SS is set to 00:00:00
+-- if left blank then it will fill in the date and time of insertion  
+-- we are backdating and I have added random times, not sure if this is correct? 
+CREATE TABLE staff
+(
+    staff_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT, FOREIGN KEY (user_id) REFERENCES user(user_id),
+    -- data type is timestamp,  
+    hire_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    -- role is a reserved word so have to enclose in backticks or rename in order to use safely 
+    `role` VARCHAR(50)
+);
+
+CREATE TABLE `member`
+(
+    member_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT, FOREIGN KEY (user_id) REFERENCES user(user_id),
+    -- sets is_active to true by default
+    is_active BOOLEAN DEFAULT TRUE,
+    date_joined TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
 -- need to insert addresses first due to foreign key constraint! 
 -- FK in users table requires address id to already exist in address
-INSERT INTO addresses (address_id, house_number, street, city, postcode, county)
+INSERT INTO address (address_id, house_number, street, city, postcode, county)
 VALUES 
 (1, '20', 'Aldwick Bay Estate', 'Bognor Regis', 'P021 4ES', 'West Sussex'),
 (2, '18', 'Woodland Vale Road', 'Horsham', 'RH13 6LU', 'West Sussex'),
@@ -35,21 +69,9 @@ VALUES
 (15, '67', 'Ransod Street', 'Hurstpierpoint', 'DE14 4MM', 'West Sussex'),
 (16, '12', 'Camilla Road', 'Southwick', 'FY15 5NN', 'West Sussex');
 
-SELECT * FROM addresses;
+SELECT * FROM address;
 
-create table users
-(
--- column name, datatype (size), optional extra rules
-user_id INT AUTO_INCREMENT PRIMARY KEY,
-address_id INT, FOREIGN KEY (address_id) references addresses(address_id),
-firstname VARCHAR(50) NOT NULL,
-surname VARCHAR(50) NOT NULL,
-email VARCHAR(100) NOT NULL,
--- use varchar to store phone numbers, if store as INT then first 0 is removed. Can also use + for international if varchar
-phone_number VARCHAR(20) NOT NULL
-);
-
-INSERT INTO users (address_id, firstname, surname, email, phone_number)
+INSERT INTO user (address_id, firstname, surname, email, phone_number)
 VALUES 
 (1, 'Robert', 'Smith', 'bob.smith@gmail.com', '07498671752'),
 (2, 'Simon', 'Gallup', 'simon.gallup@hotmail.com', '07373321759'),
@@ -72,25 +94,12 @@ VALUES
 (15, 'Veronica', 'Gil', 'verogil_1@hotmail.com', '07437134252'),
 (16, 'Angelo', 'Black', 'angelo.black@gmail.com', '07498246399');
 
-SELECT * FROM users;
+SELECT * FROM user;
 
 -- testing multiple occupants at one address 
-SELECT * FROM users WHERE address_id = 1;
+SELECT * FROM user WHERE address_id = 1;
 
-SELECT * FROM users WHERE address_id = 3;
-
--- do we need to use timestamp? If you specify just date then HH:MM:SS is set to 00:00:00
--- if left blank then it will fill in the date and time of insertion  
--- we are backdating and I have added random times, not sure if this is correct? 
-CREATE TABLE staff
-(
-    staff_id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT, FOREIGN KEY (user_id) REFERENCES users(user_id),
-    -- data type is timestamp,  
-    hire_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    -- role is a reserved word so have to enclose in backticks or rename in order to use safely 
-    `role` VARCHAR(50)
-);
+SELECT * FROM user WHERE address_id = 3;
 
 -- manually added the time as backdated
 -- not including hire_date and not inputting date/time information should automatically add the date/time information as of record insertion
@@ -105,18 +114,9 @@ VALUES
 
 SELECT * FROM staff;
 
-CREATE TABLE members
-(
-    member_id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT, FOREIGN KEY (user_id) REFERENCES users(user_id),
-    -- sets is_active to true by default
-    is_active BOOLEAN DEFAULT TRUE,
-    date_joined TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
 -- only included date so time will be set to 00:00:00
 -- no need to specify is_active as the boolean value is true for the following users 
-INSERT INTO members (user_id, date_joined)
+INSERT INTO `member` (user_id, date_joined)
 VALUES 
 (1, '2024-02-27'),
 (2,'2019-05-14'),
@@ -132,12 +132,12 @@ VALUES
 
 -- only included date so time will be set to 00:00:00
 -- include is_active as defining as False 
-INSERT INTO members (user_id, is_active, date_joined)
+INSERT INTO `member` (user_id, is_active, date_joined)
 VALUES 
 (7, FALSE, '2019-05-14'),
 (10, FALSE, '2024-02-27'),
 (13, FALSE, '2016-06-08');
 
-SELECT * FROM members WHERE is_active = FALSE;
+SELECT * FROM `member` WHERE is_active = FALSE;
 
 
