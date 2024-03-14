@@ -3,7 +3,7 @@ create database library_db;
 use library_db;
 
 -- create addresses table first. users contains reference to addresses table with foreign key so has to go after
--- foreign key can only reference a table that already eixts in the databaseaddressesusers 
+-- foreign key can only reference a table that already exists in the database
 create table addresses
 (
 address_id int PRIMARY KEY, 
