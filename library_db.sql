@@ -26,6 +26,28 @@ email VARCHAR(100) NOT NULL,
 phone_number VARCHAR(20) NOT NULL
 );
 
+CREATE TABLE staff
+(
+    staff_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT, FOREIGN KEY (user_id) REFERENCES users(user_id),
+    hire_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    -- role is a reserved word so have to enclose in backticks or rename in order to use safely 
+    `role` VARCHAR(50)
+);
+
+INSERT INTO staff (user_id, hire_date, `role`)
+VALUES 
+(10, '2024-02-27 08:00:09', 'Chief Librarian'),
+(11, '2019-05-14 09:35:43', 'Librarian'),
+(12, '2017-02-01 08:39:13', 'Librarian'),
+(13, '2016-08-23 09:35:43', 'Library Assistant'),
+(14, '2024-03-01 10:13:16', 'Library Assistant'),
+(15, '2020-12-01 08:35:27', 'Library Technician')
+;
+
+SELECT * FROM staff;
+
+
 -- need to insert addresses first due to foreign key constraint! 
 -- FK in users table requires address id to already exist in addres 
 INSERT INTO addresses (address_id, house_number, street, city, postcode, county)
