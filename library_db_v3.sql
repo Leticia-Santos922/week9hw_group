@@ -63,3 +63,28 @@ create table Publication (
     Publisher varchar(50),
     Year_Published int
 );
+
+-- FORMAT_BOOK, AVAILABILITY AND BOOK TABLE 
+
+-- enum ensures that only these specified datatypes (hardback, paperback etc.) are stored in the Format_name field 
+create table Format_book (
+Format_ID int auto_increment primary key, 
+Format_name enum("Hardback", "Paperback", "E-Book", "Audiobook") NOT NULL
+);
+
+
+create table Availability (
+Availability_ID int auto_increment primary key,
+Availability_Status enum('Available', 'Reserved', 'Out_on_loan', 'To_recycle') NOT NULL
+);
+
+create table Book(
+Book_ID int auto_increment primary key, 
+Title varchar(50) NOT NULL,
+USBN varchar(50) NOT NULL, 
+Publication_ID varchar(12) NOT NULL, 
+Availability_ID int NOT NULL,
+foreign key (Publication_ID) references Publication (Publication_ID),
+foreign key (Availability_ID) references Availability (Availability_ID)
+);
+
