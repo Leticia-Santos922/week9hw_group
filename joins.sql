@@ -43,8 +43,8 @@ ON person.address_ID = address.address_ID;
 CREATE VIEW vPeople_and_Addresses 
 AS
 SELECT 	person_ID, 
-		firstname, 
-        surname,
+-- 		firstname, 
+--         surname,
         concat(firstname, " ", surname) as "fullname",
         email,
         RIGHT(phone_number, 4) AS last_four_digits,
@@ -68,6 +68,7 @@ WHERE city LIKE "Bognor%";
 SELECT fullname, city, email
 FROM vPeople_and_Addresses
 WHERE email LIKE "%gmail%";
+
 
 
 

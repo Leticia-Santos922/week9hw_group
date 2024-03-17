@@ -1,4 +1,4 @@
-use library_db;
+USE library_db;
 
 -- ADDRESS table
 -- need to insert addresses first due to foreign key constraint! 
