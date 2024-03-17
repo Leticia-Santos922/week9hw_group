@@ -72,7 +72,7 @@ VALUES
 SELECT * FROM staff;
 
 -- LIBRARY_MEMBER table
-only included date so time will be set to 00:00:00
+-- only included date so time will be set to 00:00:00
 -- no need to specify is_active as the boolean value is true for the following users 
 INSERT INTO library_member (user_id, date_joined)
 VALUES 
