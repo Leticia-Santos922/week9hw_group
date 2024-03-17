@@ -85,7 +85,7 @@ create table Book(
 Book_ID int auto_increment primary key, 
 Title varchar(50) NOT NULL,
 USBN varchar(50) NOT NULL, 
-Publication_ID varchar(12) NOT NULL, 
+Publication_ID INT NOT NULL, 
 Availability_ID int NOT NULL,
 foreign key (Publication_ID) references Publication (Publication_ID),
 foreign key (Availability_ID) references Availability (Availability_ID)
