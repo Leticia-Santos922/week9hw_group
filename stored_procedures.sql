@@ -1,4 +1,4 @@
-USE library_db;
+USE Library_DB;
 
 -- PROCEDURE 1:
 -- ignore ; and replace with //
