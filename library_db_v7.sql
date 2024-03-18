@@ -73,7 +73,7 @@ Format_name ENUM("Hardback", "Paperback", "E-Book", "Audiobook") NOT NULL
 );
 
 ALTER TABLE Format_book
-  MODIFY COLUMN format_name ENUM('Hardback', 'Paperback', 'E-Book', 'Audiobook', 'Braille') NOT NULL;
+  MODIFY COLUMN Format_name ENUM('Hardback', 'Paperback', 'E-Book', 'Audiobook', 'Braille') NOT NULL;
 
 
 CREATE TABLE Availability (
@@ -82,13 +82,13 @@ Availability_Status ENUM('Available', 'Reserved', 'Out_on_loan', 'To_recycle') N
 );
 
 CREATE TABLE Book(
-Book_ID int auto_increment primary key, 
-Title varchar(50) NOT NULL,
-USBN varchar(50) NOT NULL, 
+Book_ID INT AUTO_INCREMENT PRIMARY KEY, 
+Title VARCHAR(50) NOT NULL,
+USBN VARCHAR(50) NOT NULL, 
 Publication_ID INT NOT NULL, 
 Availability_ID INT NOT NULL,
-foreign key (Publication_ID) references Publication (Publication_ID),
-foreign key (Availability_ID) references Availability (Availability_ID)
+FOREIGN KEY (Publication_ID) REFERENCES Publication (Publication_ID),
+FOREIGN KEY (Availability_ID) REFERENCES Availability (Availability_ID)
 );
 
 CREATE TABLE Loan
@@ -110,7 +110,7 @@ Is_available BOOLEAN DEFAULT True,
 Member_id INT, FOREIGN KEY (Member_ID) REFERENCES Library_member(Member_ID),
 Staff_id INT, FOREIGN KEY (Staff_ID) REFERENCES Staff(Staff_ID),
 Book_id INT, FOREIGN KEY (Book_ID) REFERENCES Book(Book_ID),
-Waitlist_position int
+Waitlist_position INT
 );
 
 

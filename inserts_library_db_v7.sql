@@ -131,7 +131,7 @@ VALUES
 ('19', 'Viking', 2006),
 ('20', 'Knopf', 2012);
 
-SELECT * FROM publication;
+SELECT * FROM Publication;
 
 
 -- AUTHOR table
@@ -188,7 +188,7 @@ VALUES
 ('Hardback'),
 ('Braille');
 
-select * from Format_book;
+SELECT * FROM Format_book;
 
 
 -- AVAILABILITY TABLE 
@@ -200,7 +200,7 @@ VALUES
 ('Out_on_loan'),
 ('To_recycle');
 
-select * from Availability;
+SELECT * FROM Availability;
 
 -- BOOK TABLE WITH FOREIGN KEYS 
 -- does not need ID as it is automatically incremented 
