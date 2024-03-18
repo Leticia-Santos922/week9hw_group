@@ -4,7 +4,7 @@ USE library_db;
 -- ignore ; and replace with //
 DELIMITER //
 
-CREATE PROCEDURE select_all_braille_books()
+CREATE PROCEDURE Select_all_braille_books()
 BEGIN
 	-- from book table select book_id and title
     SELECT Book.Book_ID, Book.Title
@@ -18,7 +18,7 @@ END;
 DELIMITER ;
 
 
-CALL select_all_braille_books()
+CALL Select_all_braille_books()
 
 
 
@@ -30,10 +30,10 @@ BEGIN
     SELECT Book.Title
     FROM Book
     JOIN Loan ON Loan.Book_ID = Book.Book_ID
-    WHERE Loan.Is_Overdue = True;
+    WHERE Loan.is_overdue = True;
 END;
 //
 
 DELIMITER ;
 
-CALL check_overdue_books()
+CALL Check_overdue_books()
