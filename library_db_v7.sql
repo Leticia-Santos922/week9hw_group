@@ -4,47 +4,47 @@ USE library_db;
 
 -- create addresses table first. users contains reference to addresses table with foreign key so has to go after
 -- foreign key can only reference a table that already exists in the database
-CREATE TABLE address
+CREATE TABLE Address
 (
-address_id INT AUTO_INCREMENT PRIMARY KEY, 
-house_number VARCHAR(50) NOT NULL,
-street VARCHAR(50) NOT NULL,
-city VARCHAR(50) NOT NULL,
-postcode VARCHAR(50) NOT NULL,
-county VARCHAR(50) NOT NULL
+Address_ID INT AUTO_INCREMENT PRIMARY KEY, 
+House_number VARCHAR(50) NOT NULL,
+Street VARCHAR(50) NOT NULL,
+City VARCHAR(50) NOT NULL,
+Postcode VARCHAR(50) NOT NULL,
+County VARCHAR(50) NOT NULL
 );
 
-CREATE TABLE person
+CREATE TABLE Person
 (
 -- column name, datatype (size), optional extra rules
-person_id INT AUTO_INCREMENT PRIMARY KEY,
-address_id INT, FOREIGN KEY (address_id) references address(address_id),
-firstname VARCHAR(50) NOT NULL,
-surname VARCHAR(50) NOT NULL,
-email VARCHAR(100) NOT NULL,
+Person_ID INT AUTO_INCREMENT PRIMARY KEY,
+Address_ID INT, FOREIGN KEY (Address_ID) references Address(Address_ID),
+Firstname VARCHAR(50) NOT NULL,
+Surname VARCHAR(50) NOT NULL,
+Email VARCHAR(100) NOT NULL,
 -- use varchar to store phone numbers, if store as INT then first 0 is removed. Can also use + for international if varchar
-phone_number VARCHAR(20) NOT NULL
+Phone_number VARCHAR(20) NOT NULL
 );
 
 -- do we need to use timestamp? If you specify just date then HH:MM:SS is set to 00:00:00
 -- if left blank then it will fill in the date and time of insertion  
 -- we are backdating and I have added random times, not sure if this is correct? 
-CREATE TABLE staff
+CREATE TABLE Staff
 (
-    staff_id INT AUTO_INCREMENT PRIMARY KEY,
-    person_id INT, FOREIGN KEY (person_id) REFERENCES person(person_id),
-    hire_date DATE DEFAULT (CURDATE()) NOT NULL,
-    job_title VARCHAR(50) NOT NULL
+    Staff_ID INT AUTO_INCREMENT PRIMARY KEY,
+    Person_id INT, FOREIGN KEY (Person_ID) REFERENCES Person(Person_ID),
+    Hire_date DATE DEFAULT (CURDATE()) NOT NULL,
+    Job_title VARCHAR(50) NOT NULL
 );
 
 
-CREATE TABLE library_member
+CREATE TABLE Library_member
 (
-    member_id INT AUTO_INCREMENT PRIMARY KEY,
-    person_id INT, FOREIGN KEY (person_id) REFERENCES person(person_id),
+    Member_ID INT AUTO_INCREMENT PRIMARY KEY,
+    Person_id INT, FOREIGN KEY (Person_ID) REFERENCES Person(Person_ID),
     -- sets is_active to true by default
-    is_active BOOLEAN DEFAULT TRUE,
-    date_joined DATE DEFAULT (CURDATE()) NOT NULL
+    Is_active BOOLEAN DEFAULT TRUE,
+    Date_joined DATE DEFAULT (CURDATE()) NOT NULL
 );
 
 CREATE TABLE Category (
@@ -91,26 +91,26 @@ foreign key (Publication_ID) references Publication (Publication_ID),
 foreign key (Availability_ID) references Availability (Availability_ID)
 );
 
-CREATE TABLE loan
-(loan_id INT AUTO_INCREMENT PRIMARY KEY,
-book_id INT, FOREIGN KEY (book_id) REFERENCES book(book_id),
-checkout_date DATE DEFAULT (CURDATE()) NOT NULL,
-due_date DATE DEFAULT (CURDATE()) NOT NULL,
-return_date DATE DEFAULT (CURDATE()),
-is_overdue BOOLEAN DEFAULT False,
-fines_accrued_GBP DECIMAL(10,2),
-member_id INT, FOREIGN KEY (member_id) REFERENCES library_member(member_id),
-staff_id INT, FOREIGN KEY (staff_id) REFERENCES staff(staff_id)
+CREATE TABLE Loan
+(Loan_ID INT AUTO_INCREMENT PRIMARY KEY,
+Book_ID INT, FOREIGN KEY (Book_ID) REFERENCES Book(Book_ID),
+Checkout_date DATE DEFAULT (CURDATE()) NOT NULL,
+Due_date DATE DEFAULT (CURDATE()) NOT NULL,
+Return_date DATE DEFAULT (CURDATE()),
+Is_overdue BOOLEAN DEFAULT False,
+Fines_accrued_GBP DECIMAL(10,2),
+Member_ID INT, FOREIGN KEY (Member_ID) REFERENCES Library_member(Member_ID),
+Staff_ID INT, FOREIGN KEY (Staff_ID) REFERENCES Staff(Staff_ID)
 );
 
 CREATE TABLE reservation
-(reservation_id INT AUTO_INCREMENT PRIMARY KEY,
-reservation_date DATE DEFAULT (CURDATE()),
-is_available BOOLEAN DEFAULT True,
-member_id INT, FOREIGN KEY (member_id) REFERENCES library_member(member_id),
-staff_id INT, FOREIGN KEY (staff_id) REFERENCES staff(staff_id),
-book_id INT, FOREIGN KEY (book_id) REFERENCES book(book_id),
-waitlist_position int
+(Reservation_ID INT AUTO_INCREMENT PRIMARY KEY,
+Reservation_date DATE DEFAULT (CURDATE()),
+Is_available BOOLEAN DEFAULT True,
+Member_id INT, FOREIGN KEY (Member_ID) REFERENCES Library_member(Member_ID),
+Staff_id INT, FOREIGN KEY (Staff_ID) REFERENCES Staff(Staff_ID),
+Book_id INT, FOREIGN KEY (Book_ID) REFERENCES Book(Book_ID),
+Waitlist_position int
 );
 
 

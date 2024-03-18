@@ -3,7 +3,7 @@ USE library_db;
 -- ADDRESS table
 -- need to insert addresses first due to foreign key constraint! 
 -- FK in users table requires address id to already exist in address
-INSERT INTO address (address_id, house_number, street, city, postcode, county)
+INSERT INTO Address (Address_ID, House_number, Street, City, Postcode, County)
 VALUES 
 (1, '20', 'Aldwick Bay Estate', 'Bognor Regis', 'P021 4ES', 'West Sussex'),
 (2, '18', 'Woodland Vale Road', 'Horsham', 'RH13 6LU', 'West Sussex'),
@@ -22,11 +22,11 @@ VALUES
 (15, '67', 'Ransod Street', 'Hurstpierpoint', 'DE14 4MM', 'West Sussex'),
 (16, '12', 'Camilla Road', 'Southwick', 'FY15 5NN', 'West Sussex');
 
-SELECT * FROM address;
+SELECT * FROM Address;
 
 
 -- USER table
-INSERT INTO person (address_id, firstname, surname, email, phone_number)
+INSERT INTO Person (Address_ID, Firstname, Surname, Email, Phone_number)
 VALUES 
 (1, 'Robert', 'Smith', 'bob.smith@gmail.com', '07498671752'),
 (2, 'Simon', 'Gallup', 'simon.gallup@hotmail.com', '07373321759'),
@@ -49,18 +49,18 @@ VALUES
 (15, 'Veronica', 'Gil', 'verogil_1@hotmail.com', '07437134252'),
 (16, 'Angelo', 'Black', 'angelo.black@gmail.com', '07498246399');
 
-SELECT * FROM person;
+SELECT * FROM Person;
 
 -- testing multiple occupants at one address 
-SELECT * FROM person WHERE address_id = 1;
+SELECT * FROM Person WHERE Address_ID = 1;
 
-SELECT * FROM person WHERE address_id = 3;
+SELECT * FROM Person WHERE Address_ID = 3;
 
 
 -- STAFF table
 -- manually added the time as backdated
 -- not including hire_date and not inputting date/time information should automatically add the date/time information as of record insertion
-INSERT INTO staff (person_id, hire_date, job_title)
+INSERT INTO Staff (Person_ID, Hire_date, Job_title)
 VALUES 
 (15, '2024-02-27', 'Chief Librarian'),
 (16, '2019-05-14', 'Librarian'),
@@ -69,12 +69,12 @@ VALUES
 (19, '2024-03-01', 'Library Assistant'),
 (20, '2020-12-01', 'Library Technician');
 
-SELECT * FROM staff;
+SELECT * FROM Staff;
 
 -- LIBRARY_MEMBER table
 -- only included date so time will be set to 00:00:00
 -- no need to specify is_active as the boolean value is true for the following users 
-INSERT INTO library_member (person_id, date_joined)
+INSERT INTO Library_member (Person_ID, Date_joined)
 VALUES 
 (1, '2024-02-27'),
 (2,'2019-05-14'),
@@ -90,13 +90,13 @@ VALUES
 
 -- only included date so time will be set to 00:00:00
 -- include is_active as defining as False 
-INSERT INTO library_member (person_id, is_active, date_joined)
+INSERT INTO Library_Member (Person_ID, Is_active, Date_joined)
 VALUES 
 (7, FALSE, '2019-05-14'),
 (10, FALSE, '2024-02-27'),
 (13, FALSE, '2016-06-08');
 
-SELECT * FROM library_member WHERE is_active = FALSE;
+SELECT * FROM Library_member WHERE Is_active = FALSE;
 
 -- I made an error and should have entered all library members as active to begin with and then executed the following code which makes more sense:
 /*
@@ -108,8 +108,8 @@ WHERE user_id IN (7, 10, 13);
 
 
 -- PUBLICATION table
-insert into  Publication (Publication_ID, Publisher, Year_Published)
-values
+INSERT INTO   Publication (Publication_ID, Publisher, Year_Published)
+VALUES
 ('01', 'Scribner', 1925),
 ('02', 'J. B. Lippincott & Co.', 1960),
 ('03', 'Crown Publishing Group', 2012),
@@ -131,12 +131,12 @@ values
 ('19', 'Viking', 2006),
 ('20', 'Knopf', 2012);
 
-select * from publication;
+SELECT * FROM publication;
 
 
 -- AUTHOR table
-insert into Author (Author_ID, Firstname, Surname)
-values 
+INSERT INTO Author (Author_ID, Firstname, Surname)
+VALUES
 ('01', 'F. Scott', 'Fitzgerald'),
 ('02', 'Harper', 'Lee'),
 ('03', 'Gillian', 'Flynn'),
@@ -158,13 +158,13 @@ values
 ('19', 'Elizabeth', 'Gilbert'),
 ('20', 'Cheryl', 'Strayed');
 
-select * from Author;
+SELECT * FROM Author;
 
 
 
 -- Category table
-insert into Category (Category_ID, Category_Type)
-values
+INSERT INTO Category (Category_ID, Category_Type)
+VALUES
 ('01', 'Fiction'),
 ('02', 'Mystery'),
 ('03', 'Romance'),
@@ -176,12 +176,12 @@ values
 ('09', 'Self-Help'),
 ('10', 'Travel');
 
-select * from Category;
+SELECT * FROM Category;
 
 -- FORMAT_BOOK Table 
 
-insert into Format_book(Format_name)
-values 
+INSERT INTO Format_book(Format_name)
+VALUES
 ('Paperback'), 
 ('E-Book'), 
 ('Audiobook'),
@@ -193,8 +193,8 @@ select * from Format_book;
 
 -- AVAILABILITY TABLE 
 
-insert into Availability(Availability_Status)
-values 
+INSERT INTO  Availability(Availability_Status)
+VALUES
 ('Available'), 
 ('Reserved'), 
 ('Out_on_loan'),
@@ -205,8 +205,8 @@ select * from Availability;
 -- BOOK TABLE WITH FOREIGN KEYS 
 -- does not need ID as it is automatically incremented 
 -- some with double quotes as they have a single quote in the name  
-insert Book(Title, USBN, Publication_ID, Availability_ID) 
-values 
+INSERT Book(Title, USBN, Publication_ID, Availability_ID) 
+VALUES
 ('The Great Gatsby', '456', '01', 1),
 ('To Kill a Mockingbird', '789', '02', 1),
 ('Gone Girl', '234', '03', 2),
@@ -228,10 +228,10 @@ values
 ('Eat, Pray, Love',	'567', '19', 1),
 ('Wild', '143', '20', 1);
 
-select * from Book;
+SELECT * FROM Book;
 
-insert into loan (book_id, checkout_date, due_date, return_date, is_overdue, fines_accrued_GBP, member_id, staff_id)
-values
+INSERT INTO  Loan (Book_ID, Checkout_date, Due_date, Return_date, Is_overdue, Fines_accrued_GBP, Member_ID, Staff_ID)
+VALUES
 (01, '2024-03-08', '2024-03-15', '2024-03-15', FALSE, NULL, 01, 01),
 (02, '2023-10-18', '2023-11-08', '2023-10-26', FALSE,	NULL, 02, 02),
 (03, '2023-11-10', '2023-12-01', '2023-11-27', FALSE, NULL, 03, 03),
@@ -247,10 +247,10 @@ values
 (13, '2024-03-13', '2024-04-03', NULL, TRUE, 80.00, 13, 03),
 (14, '2024-03-13', '2024-04-04', NULL, FALSE, NULL, 14, 04);
 
-SELECT * FROM loan;
+SELECT * FROM Loan;
 
-insert into reservation (reservation_date, is_available, member_id, staff_id, book_id, waitlist_position)
-values
+INSERT INTO Reservation (Reservation_Date, Is_Available, Member_ID, Staff_ID, Book_ID, Waitlist_position)
+VALUES
 ('2024-10-24', FALSE, 01, 01, 07, 01),
 ('2023-11-09', TRUE, 01, 02, 03, 01),
 ('2023-12-29', FALSE, 03, 05, 07, 03),
@@ -259,14 +259,13 @@ values
 ('2024-02-13', TRUE, 06, 03, 07, 01),
 ('2024-01-17', TRUE, 07, 06, 08, 01);
 
-SELECT * 
-FROM reservation;
+SELECT * FROM Reservation;
 
 
 -- foreign keys table
 
-insert into Book_Format (Book_ID, Format_ID)
-values
+INSERT INTO Book_Format (Book_ID, Format_ID)
+VALUES
 (01, 01), 
 (02, 01), 
 (03, 01), 
@@ -348,11 +347,10 @@ values
 (19, 05), 
 (20, 05);
 
-SELECT * 
-FROM Book_Format;
+SELECT * FROM Book_Format;
 
-insert into Book_Author (Author_ID, Book_ID)
-values
+INSERT INTO Book_Author (Author_ID, Book_ID)
+VALUES
 (01, 01), 
 (02, 02), 
 (03, 03), 
@@ -394,11 +392,10 @@ values
 (05, 19), 
 (04, 20);
 
-SELECT * 
-FROM Book_Author;
+SELECT * FROM Book_Author;
 
-insert into Book_Category (Category_ID, Book_ID)
-values
+INSERT INTO  Book_Category (Category_ID, Book_ID)
+VALUES
 (2, 01), 
 (1, 02), 
 (2, 03), 
@@ -440,5 +437,4 @@ values
 (10, 19), 
 (4, 20);
 
-SELECT * 
-FROM Book_Category;
+SELECT * FROM Book_Category;

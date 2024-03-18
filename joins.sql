@@ -1,37 +1,37 @@
 USE library_db;
 
-SELECT 	person_id, 
-		firstname, 
-        surname,
-        concat(firstname, " ", surname) AS "fullname",
-        email,
+SELECT 	Person_ID, 
+		Firstname, 
+        Surname,
+        concat(Firstname, " ", Surname) AS "Fullname",
+        Email,
         RIGHT(phone_number, 4) AS last_four_digits
-FROM person;
+FROM Person;
 
-SELECT 	address_ID,
-		house_number,
-		street,
-        city
-FROM address;
+SELECT 	Address_ID,
+		House_number,
+		Street,
+        City
+FROM Address;
 
 -- get info for table, concatentations, rename columns
 -- create a third select query to join them together
 -- only join related tables
 -- JOIN...
-SELECT 	person_ID, 
-		firstname, 
-        surname,
-        concat(firstname, " ", surname) as "fullname",
-        email,
-        RIGHT(phone_number, 4) AS last_four_digits,
+SELECT 	Person_ID, 
+		Firstname, 
+        Surname,
+        concat(Firstname, " ", Surname) as "Fullname",
+        Email,
+        RIGHT(Phone_number, 4) AS Last_four_digits,
         -- error unless add address. first. Use address as every address is unique in this table
-        address.address_ID,
-        house_number as "house",
-		street,
-        city
+        Address.Address_ID,
+        House_number as "House",
+		Street,
+        City
         -- inner join (default), so could just use join below
-FROM person INNER JOIN address
-ON person.address_ID = address.address_ID;
+FROM Person INNER JOIN Address
+ON Person.Address_ID = Address.Address_ID;
 
 
 -- create a view
@@ -42,32 +42,32 @@ ON person.address_ID = address.address_ID;
 -- save query as view
 CREATE VIEW vPeople_and_Addresses 
 AS
-SELECT 	person_ID, 
--- 		firstname, 
+SELECT 	Person_ID, 
+-- 		   firstname, 
 --         surname,
-        concat(firstname, " ", surname) as "fullname",
-        email,
-        RIGHT(phone_number, 4) AS last_four_digits,
+        concat(Firstname, " ", Surname) as "Fullname",
+        Email,
+        RIGHT(Phone_number, 4) AS Last_four_digits,
         -- error unless add address. first. Use address as every address is unique in this table
-        address.address_ID,
-        house_number as "house",
-		street,
-        city
+        Address.Address_ID,
+        House_number as "House",
+		Street,
+        City
         -- inner join (default), so could just use join below
-FROM person INNER JOIN address
-ON person.address_ID = address.address_ID
-ORDER BY person_ID;
+FROM Person INNER JOIN Address
+ON Person.address_ID = Address.Address_ID
+ORDER BY Person_ID;
 
 -- returns the name, street, city and phone_number of all users in Bognor Regis 
 -- only last four digits of phone number showing for security
-SELECT fullname, house, street, city, last_four_digits
+SELECT Fullname, House, Street, City, Last_four_digits
 FROM vPeople_and_Addresses
-WHERE city LIKE "Bognor%";
+WHERE City LIKE "Bognor%";
 
 -- returns the name, city and email of all users with a gmail account
-SELECT fullname, city, email
+SELECT Fullname, City, Email
 FROM vPeople_and_Addresses
-WHERE email LIKE "%gmail%";
+WHERE Email LIKE "%gmail%";
 
 
 
