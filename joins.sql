@@ -1,15 +1,15 @@
-USE library_db;
+USE Library_DB;
 
 SELECT 	Person_ID, 
 		-- Firstname, 
 --         Surname,
         concat(Firstname, " ", Surname) AS "Fullname",
         Email,
-        RIGHT(phone_number, 4) AS last_four_digits
+        RIGHT(Phone_Number, 4) AS Last_Four_Digits
 FROM Person;
 
 SELECT 	Address_ID,
-		House_number,
+		House_Number,
 		Street,
         City
 FROM Address;
@@ -23,10 +23,10 @@ SELECT 	Person_ID,
 --         Surname,
         concat(Firstname, " ", Surname) as "Fullname",
         Email,
-        RIGHT(Phone_number, 4) AS Last_four_digits,
+        RIGHT(Phone_Number, 4) AS Last_Four_Digits,
         -- error unless add address. first. Use address as every address is unique in this table
         Address.Address_ID,
-        House_number as "House",
+        House_Number as "House",
 		Street,
         City
         -- inner join (default), so could just use join below
@@ -47,20 +47,20 @@ SELECT 	Person_ID,
 		surname,
         concat(Firstname, " ", Surname) as "Fullname",
         Email,
-        RIGHT(Phone_number, 4) AS Last_four_digits,
+        RIGHT(Phone_Number, 4) AS Last_Four_Digits,
         -- error unless add address. first. Use address as every address is unique in this table
         Address.Address_ID,
-        House_number as "House",
+        House_Number as "House",
 		Street,
         City
         -- inner join (default), so could just use join below
 FROM Person INNER JOIN Address
-ON Person.address_ID = Address.Address_ID
+ON Person.Address_ID = Address.Address_ID
 ORDER BY Person_ID;
 
 -- returns the name, street, city and phone_number of all users in Bognor Regis 
 -- only last four digits of phone number showing for security
-SELECT Fullname, House, Street, City, Last_four_digits
+SELECT Fullname, House, Street, City, Last_Four_Digits
 FROM vPeople_and_Addresses
 WHERE City LIKE "Bognor%";
 
@@ -68,8 +68,3 @@ WHERE City LIKE "Bognor%";
 SELECT Fullname, City, Email
 FROM vPeople_and_Addresses
 WHERE Email LIKE "%gmail%";
-
-
-
-
-

@@ -1,4 +1,4 @@
-USE library_db;
+USE Library_DB;
 
 -- PROCEDURE 1:
 -- ignore ; and replace with //
@@ -10,7 +10,7 @@ BEGIN
     SELECT Book.Book_ID, Book.Title
     FROM Book 
     JOIN Book_Format ON Book.Book_ID = Book_Format.Book_ID
-    -- JOIN format_book.Format_ID ON book_format.Format_ID = format_book.Format_ID
+    JOIN format_book ON book_format.Format_ID = format_book.Format_ID
     WHERE Book_Format.Format_ID = 5;
 END;
 //
@@ -41,37 +41,12 @@ DELIMITER ;
 CALL Check_overdue_books()
 
 
--- PROCEDURE 3 - browse books suitable for visually impaired people:
-
--- DELIMITER //
-
--- CREATE PROCEDURE identify_books_for_visual_impairment()
--- BEGIN
--- 	-- from book table select title
---     SELECT 
--- 		Book.Title AS BookTitle,
--- 		-- Category.Category_Type AS CategoryType,
---         Format_Book.Format_name AS BookFormat
---     FROM Book 
---     JOIN Book_Format ON Book.Book_ID = Book_Format.Book_ID
---     JOIN Format_Book ON Book_Format.Format_ID = Format_Book.Format_ID
--- 	-- JOIN Category ON Book_Category.Category_ID = Category.Category_ID
---     WHERE Book_Format.Format_ID in (3, 5);
--- END;
--- //
-
--- DELIMITER ;
-
-
--- CALL identify_books_for_visual_impairment()
-
--- PROCEDURE 4 - Add category information to the above 
+-- PROCEDURE 3 - Find all romance novels suitable for visually impaired
 
 DELIMITER //
 
 CREATE PROCEDURE love_is_blind()
 BEGIN
-	-- from book table select title
     SELECT 
 		Book.Title AS BookTitle,
 		Category.Category_Type AS CategoryType,
