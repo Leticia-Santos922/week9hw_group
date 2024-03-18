@@ -103,7 +103,7 @@ Member_ID INT, FOREIGN KEY (Member_ID) REFERENCES Library_member(Member_ID),
 Staff_ID INT, FOREIGN KEY (Staff_ID) REFERENCES Staff(Staff_ID)
 );
 
-CREATE TABLE reservation
+CREATE TABLE Reservation
 (Reservation_ID INT AUTO_INCREMENT PRIMARY KEY,
 Reservation_date DATE DEFAULT (CURDATE()),
 Is_available BOOLEAN DEFAULT True,
