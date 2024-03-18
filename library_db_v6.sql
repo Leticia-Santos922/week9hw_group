@@ -14,10 +14,10 @@ postcode VARCHAR(50) NOT NULL,
 county VARCHAR(50) NOT NULL
 );
 
-create table user
+create table person
 (
 -- column name, datatype (size), optional extra rules
-user_id INT AUTO_INCREMENT PRIMARY KEY,
+person_id INT AUTO_INCREMENT PRIMARY KEY,
 address_id INT, FOREIGN KEY (address_id) references address(address_id),
 firstname VARCHAR(50) NOT NULL,
 surname VARCHAR(50) NOT NULL,
@@ -32,7 +32,7 @@ phone_number VARCHAR(20) NOT NULL
 CREATE TABLE staff
 (
     staff_id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT, FOREIGN KEY (user_id) REFERENCES user(user_id),
+    person_id INT, FOREIGN KEY (user_id) REFERENCES user(user_id),
     hire_date DATE DEFAULT (CURDATE()),
     job_title VARCHAR(50)
 );
@@ -41,7 +41,7 @@ CREATE TABLE staff
 CREATE TABLE library_member
 (
     member_id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT, FOREIGN KEY (user_id) REFERENCES user(user_id),
+    person_id INT, FOREIGN KEY (user_id) REFERENCES user(user_id),
     -- sets is_active to true by default
     is_active BOOLEAN DEFAULT TRUE,
     date_joined DATE DEFAULT (CURDATE())

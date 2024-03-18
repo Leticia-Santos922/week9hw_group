@@ -26,7 +26,7 @@ SELECT * FROM address;
 
 
 -- USER table
-INSERT INTO user (address_id, firstname, surname, email, phone_number)
+INSERT INTO person (address_id, firstname, surname, email, phone_number)
 VALUES 
 (1, 'Robert', 'Smith', 'bob.smith@gmail.com', '07498671752'),
 (2, 'Simon', 'Gallup', 'simon.gallup@hotmail.com', '07373321759'),
@@ -49,18 +49,18 @@ VALUES
 (15, 'Veronica', 'Gil', 'verogil_1@hotmail.com', '07437134252'),
 (16, 'Angelo', 'Black', 'angelo.black@gmail.com', '07498246399');
 
-SELECT * FROM user;
+SELECT * FROM person;
 
 -- testing multiple occupants at one address 
-SELECT * FROM user WHERE address_id = 1;
+SELECT * FROM person WHERE address_id = 1;
 
-SELECT * FROM user WHERE address_id = 3;
+SELECT * FROM person WHERE address_id = 3;
 
 
 -- STAFF table
 -- manually added the time as backdated
 -- not including hire_date and not inputting date/time information should automatically add the date/time information as of record insertion
-INSERT INTO staff (user_id, hire_date, job_title)
+INSERT INTO staff (person_id, hire_date, job_title)
 VALUES 
 (15, '2024-02-27', 'Chief Librarian'),
 (16, '2019-05-14', 'Librarian'),
@@ -74,7 +74,7 @@ SELECT * FROM staff;
 -- LIBRARY_MEMBER table
 -- only included date so time will be set to 00:00:00
 -- no need to specify is_active as the boolean value is true for the following users 
-INSERT INTO library_member (user_id, date_joined)
+INSERT INTO library_member (person_id, date_joined)
 VALUES 
 (1, '2024-02-27'),
 (2,'2019-05-14'),
@@ -90,7 +90,7 @@ VALUES
 
 -- only included date so time will be set to 00:00:00
 -- include is_active as defining as False 
-INSERT INTO library_member (user_id, is_active, date_joined)
+INSERT INTO library_member (person_id, is_active, date_joined)
 VALUES 
 (7, FALSE, '2019-05-14'),
 (10, FALSE, '2024-02-27'),

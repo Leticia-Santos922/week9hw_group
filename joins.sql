@@ -1,8 +1,8 @@
 USE library_db;
 
 SELECT 	Person_ID, 
-		Firstname, 
-        Surname,
+		-- Firstname, 
+--         Surname,
         concat(Firstname, " ", Surname) AS "Fullname",
         Email,
         RIGHT(phone_number, 4) AS last_four_digits
@@ -19,8 +19,8 @@ FROM Address;
 -- only join related tables
 -- JOIN...
 SELECT 	Person_ID, 
-		Firstname, 
-        Surname,
+		-- Firstname, 
+--         Surname,
         concat(Firstname, " ", Surname) as "Fullname",
         Email,
         RIGHT(Phone_number, 4) AS Last_four_digits,
@@ -43,8 +43,8 @@ ON Person.Address_ID = Address.Address_ID;
 CREATE VIEW vPeople_and_Addresses 
 AS
 SELECT 	Person_ID, 
--- 		   firstname, 
---         surname,
+		firstname, 
+		surname,
         concat(Firstname, " ", Surname) as "Fullname",
         Email,
         RIGHT(Phone_number, 4) AS Last_four_digits,
