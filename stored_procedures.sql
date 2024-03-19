@@ -41,7 +41,21 @@ DELIMITER ;
 CALL Check_overdue_books()
 
 
--- PROCEDURE 3 - Find all romance novels suitable for visually impaired
+-- PROCEDURE 3 - Find all romance novels suitable for visually impaired (love_is_blind)
+
+-- select all the rows that you want to have from each table --> syntax table.column (optional - give a new name)
+-- in this case, we want a book title, category and format (so VI users can browse books by genre what are accessible)
+-- now we need to join the tables together, so the database pulls the columns that match up
+-- book:format = many:many - need link book to book:format link to format
+-- so join book_format (link table) to book by book_id (PK and FK - it's the id that links the 2 tables)
+-- it will pull all the rows where the book_id matches in the 2 tables
+-- then join the link table to the format table using format_id - links books to their format when many:many
+-- then join the category table to the book table - again using book_id (again the ID that links the two tables)
+-- now all the tables are linked up so you can access all the rows that you have asked for above
+-- 'where' is the filter, so we want all the books that have a format_id 3 or 5 (audio or braille)
+-- 'and' adds another filter - where the category is romance
+-- final output is the books in the romance category avaiable as either audio or braille
+
 
 DELIMITER //
 
